@@ -138,12 +138,67 @@ if (message.content.toLowerCase().startsWith(prefix + `close`)) {
           message.channel.delete();
         })
         .catch(() => {
-          m.edit('Vous n\'avez pas confirmer la fermeture du ticket').then(m2 => {
+          m.edit('Vous n\'avez pas choisi la catégorie du help').then(m2 => {
               m2.delete();
           }, 3000);
         });
     });
 }
-	  }
+    if (message.content.startsWith (prefix + "help")) {
+      const embed = new Discord.RichEmbed()
+      .setColor ("RANDOM")
+      .setTitle("📈Choisissez là catégorie que vous souhaitez voir :")
+      .addField("🔨 | Modérateurs","Envoyez modo")
+      .addField ("👪 | Utilisateurs","Envoyez Je user")
+      .addField ("🔩 | Commande pour la création des serveurs","Envoyez serveur")
+      .setFooter ("⚠Vous avez 30 seconds⚠");
+      message.channel.send ({embed}).then((m) => {
+      message.channel.awaitMessages(response => response.content === 'user', {
+        max: 1,
+        time: 30000,
+        errors: ['time'],
+      })
+        .then ((collected) => {
+        let eb = new Discord.RichEmbed()
+        .setColor ("RANDOM")
+        .addField("Le placard de l'utilisateurs","<:en_ligne:576662449734811659>``g!verif``\ **Vous permet de verifier si l'utilisateur mentionné est dans le staff du bot**\n<:en_ligne:576662449734811659>``g!gen``\ **Vous permet de générer une invitation permanente! **\n<:en_ligne:576662449734811659>``g!avatar``\ **Vous donne la photo de profil de la personne mentionné !**\n<:en_ligne:576662449734811659>``g!uptime``\ **Voir depuis quand le bot ne c'est pas redémarré**\n<:en_ligne:576662449734811659>``g!ping``\ **Regarder le ping du bot**\n<:en_ligne:576662449734811659>``g!setup``\ **Vous permet de voir comment construire votre serveur**\n<:en_ligne:576662449734811659>``g!view``\ **Vous permet d'avoir la liste de 5 serveurs qui sont là pour exemple des commandes !**\n<:en_ligne:576662449734811659>``g!contact``\**faire un report ou autre en contactant un administrateur rapidemment (réponse sous 24h)**", true)
+       message.channel.send (eb)
+      });
+      message.channel.awaitMessages(response => response.content === 'modo', {
+        max: 1,
+        time: 30000,
+        errors: ['time'],
+      })
+      .then((collected) => {
+          let salut =  new Discord.RichEmbed()
+          .setColor ("RANDOM")
+          .addField("Le placard de la modération","<:en_ligne:576662449734811659>``g!lock``\ **Interdit au rôle everyone de parler sur le salon**\n<:en_ligne:576662449734811659>``g!unlock``\ **Autorise de nouveaux au role everyone de parler**\n<:en_ligne:576662449734811659>``g!say``\ **Fait parler le bot à votre place**\n<:en_ligne:576662449734811659>``g!slowmode``\ **Mettre un slowmode (mettre 0 pour désactiver)**\n<:en_ligne:576662449734811659>``g!deleteserv``\ **Détruit tout les salons de votre serveur (nous ne sommes pas responsable d'un mauvaise usage de votre part)**\n<:en_ligne:576662449734811659>``g!eval``\ **Réservé à l'owner du bot**\n<:en_ligne:576662449734811659>``g!kick``\ **Exclut le membre mentionner**\n<:en_ligne:576662449734811659>``g!ban``\ **Bannis le membre mentionner**\n<:en_ligne:576662449734811659>``g!reglement``**vous fait un jolie règlement pré-definis**", true);
+message.channel.send(salut)
+        })   
+        .then((m) => {
+      message.channel.awaitMessages(response => response.content === 'serveur', {
+        max: 1,
+        time: 20000,
+        errors: ['time'],
+      })
+      .then((collected) => {
+          let serveur = new Discord.RichEmbed()
+          .setColor ("RANDOM")
+          .addField(" Communautaire :","<:en_ligne:576662449734811659>``g!commu``**\ Crée votre serveur sous le thème de la communauté**", true)
+.addField(" Basique :","<:en_ligne:576662449734811659>``g!salon``\ **Création de votre serveur sous le thème global**", true)
+.addField("Publicitaire :","<:en_ligne:576662449734811659>``g!pub``\ **Crée un serveur sous le thème Publicitaire**\n<:en_ligne:576662449734811659>``g!p-2``\ **Crée un serveur sous le thème Publicitaire 2**", true)
+.addField(" Uniquement les rôles :","<:en_ligne:576662449734811659>``g!role``\ **Création des roles uniquement**", true)
+message.channel.send (serveur)
+        })
+        .catch(() => {
+          m.edit('Vous n\'avez pas précisez le help souhaitez').then(m2 => {
+              m2.delete();
+          }, 3000);
+        });
+    });
+      })
+    }
+  }         
+                                             
 });
 client.login(process.env.TOKEN)
