@@ -1,3 +1,4 @@
+  
 const CLEAR_MESSAGES = '!clearMessages';
 const Discord = require('discord.js');
 let client = new Discord.Client();
@@ -50,9 +51,11 @@ if (message.content.startsWith (prefix + "rename")) {
   if (message.content.startsWith (prefix + "test2")) {
      var sale = message.guild.members.filter(m =>  ! m.user.bot).size
      var sale2 = message.guild.members.filter (m => m.user.bot).size
+     const yo = message.mentions.members.first();
     const embed = new Discord.RichEmbed()
     .addField(`Nombre de non bot : `, sale)
     .addField (`nombre bot :`, sale2)
+    .addField(`yo`, yo.joinedAt)
      message.channel.send({embed})
   }
   if(message.content.startsWith (prefix + "ui")) {
@@ -60,9 +63,11 @@ if (message.content.startsWith (prefix + "rename")) {
 		if(message.mentions.users.size === 0)
 			return message.channel.send("Vous avez oublié de mentionné une personne !");
 		var use = message.mentions.users.first();
+    const use3 = message.mentions.members.first();
     var use2 = message.mentions.users.first ().username
     const embed = new Discord.RichEmbed()
     .setAuthor("information sur l'utilisateur :\ " + use2 +"#"+ use.discriminator)
+    .addField(`A rejoin `+ message.guild.name, use3.joinedAt)
     
     message.channel.send ({embed})
   }
@@ -88,6 +93,53 @@ if (message.content.startsWith (prefix + "rename")) {
       
     message.channel.send(lock)
     }
+    if (message.content.toLowerCase().startsWith(prefix + `new`)) {
+    const reason = message.content.split(" ").slice(1).join(" ");
+    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
+    if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`You already have a ticket open.`);
+    message.guild.createChannel(`ticket-${message.author.id}`, "text").then(c => {
+        let role = message.guild.roles.find("name", "Support Team");
+        let role2 = message.guild.roles.find("name", "@everyone");
+        c.overwritePermissions(role, {
+            SEND_MESSAGES: true,
+            READ_MESSAGES: true
+        });
+        c.overwritePermissions(role2, {
+            SEND_MESSAGES: false,
+            READ_MESSAGES: false
+        });
+        c.overwritePermissions(message.author, {
+            SEND_MESSAGES: true,
+            READ_MESSAGES: true
+        });
+        message.channel.send(`:white_check_mark: Your ticket has been created, #${c.name}.`);
+        const embed = new Discord.RichEmbed()
+        .setColor(0xCF40FA)
+        .addField(`Hey ${message.author.username}!`, `Please try explain why you opened this ticket with as much detail as possible. Our **Support Team** will be here soon to help.`)
+        .setTimestamp();
+        c.send({ embed: embed });
+    }).catch(console.error);
+}
+if (message.content.toLowerCase().startsWith(prefix + `close`)) {
+    if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`Vous pouvez utiliser cette commande uniquement sur votre ticket !`);
+
+    message.channel.send(`Vous êtes sûr ? Vous ne pourrez pas revenir en arrière ! Pour confirmer taper ` + prefix+`confirm (vous avez 20 seconds)`)
+    .then((m) => {
+      message.channel.awaitMessages(response => response.content === prefix +'confirm', {
+        max: 1,
+        time: 20000,
+        errors: ['time'],
+      })
+      .then((collected) => {
+          message.channel.delete();
+        })
+        .catch(() => {
+          m.edit('Vous n\'avez pas confirmer la fermeture du ticket').then(m2 => {
+              m2.delete();
+          }, 3000);
+        });
+    });
+}
 	  }
 });
 client.login(process.env.TOKEN)
