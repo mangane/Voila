@@ -88,39 +88,6 @@ if (message.content.startsWith (prefix + "rename")) {
       
     message.channel.send(lock)
     }
-    if(message.content === prefix + "lockall") {
-      if(!message.guild.member(message.author).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**❌ Vous n'avez pas les permissions, `MANAGE_CHANNELS`❌**")
-    
-     // message.guild.overwritePermissions(message.guild.id, {
-       // SEND_MESSAGES: false
-    let role2 = message.guild.role.find("name", "@everyone").then(r => 
-            r.guild.overwritePermissions(role2, {
-                SEND_MESSAGES: false,
-                READ_MESSAGES: true,
-            MENTION_EVERYONE: false
-    }))
-                                                    
-    let lock = new Discord.RichEmbed()
-    .addField(`🔒 Salon verrouillé`,`**Le salon a été verrouillé par ${message.author}**`)
-      
-    message.channel.send(lock)
-    }
-    if(message.content === prefix + "unlockall") {
-    if(!message.guild.member(message.author).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**❌ Vous n'avez pas les permissions, `MANAGE_CHANNELS` ❌**")
-  let role2 = message.guild.role.find("name", "@everyone").then (r => 
-            r.guild.overwritePermissions(role2, {
-                SEND_MESSAGES: null,
-                READ_MESSAGES: null,
-            MENTION_EVERYONE: false
-            }))
-   // message.guild.overwritePermissions(message.guild.id, {
-     // SEND_MESSAGES: null
-  //});
-  let unlock = new Discord.RichEmbed()
-  .addField(`🔓 Salon déverrouillé`,`**Le salon a été déverrouillé par ${message.author}**`)
-  
-  message.channel.send(unlock)
-    }
-  }                                                        
+	  }
 });
 client.login(process.env.TOKEN)
