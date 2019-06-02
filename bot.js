@@ -37,6 +37,8 @@ if (message.content.startsWith (prefix + "rename")) {
   message.name.setNickname(`${args[0]}`)
 }
   if (message.content.startsWith (prefix + "si")) {
+    var sale = message.guild.members.filter(m =>  ! m.user.bot).size
+     var sale2 = message.guild.members.filter (m => m.user.bot).size
       const embed = new Discord.RichEmbed()
       .setColor ("#d11000")
   .setAuthor(`${message.guild.name}`, message.guild.iconURL)
@@ -45,6 +47,8 @@ if (message.content.startsWith (prefix + "rename")) {
       .addField ("🌎 | La région est :", message.guild.region)
       .addField ("👪 | Nombre de membres :", message.guild.memberCount)
       .addField ("♨ | Nombre de salon :", message.guild.channels.size)
+      .addField ("🔨 | Nombre de Bot :", sale2)
+      .addField ("👪 | Nombre d'humain", sale)
       .setThumbnail(message.guild.iconURL)
       message.channel.send ({embed})
       }
@@ -95,9 +99,9 @@ if (message.content.startsWith (prefix + "rename")) {
     }
     if (message.content.toLowerCase().startsWith(prefix + `new`)) {
     const reason = message.content.split(" ").slice(1).join(" ");
-    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
-    if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`You already have a ticket open.`);
-    message.guild.createChannel(`ticket-${message.author.id}`, "text").then(c => {
+    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`Ce serveur ne possède pas de rôle \`Support Team\` Le ticket ne peux donc pas être créé, Contacté un administrateur pour qu'ilcréele rôle avec le nom Exact !`);
+      if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`Vous êtes déjà en possession d'un ticket `);
+    message.guild.createChannel(`ticket-${message.author.name}`, "text").then(c => {
         let role = message.guild.roles.find("name", "Support Team");
         let role2 = message.guild.roles.find("name", "@everyone");
         c.overwritePermissions(role, {
@@ -112,10 +116,10 @@ if (message.content.startsWith (prefix + "rename")) {
             SEND_MESSAGES: true,
             READ_MESSAGES: true
         });
-        message.channel.send(`:white_check_mark: Your ticket has been created, #${c.name}.`);
+        message.channel.send(`<:okay:578974520199741472> Votre ticket à bien été créé  ${c}.`);
         const embed = new Discord.RichEmbed()
         .setColor(0xCF40FA)
-        .addField(`Hey ${message.author.username}!`, `Please try explain why you opened this ticket with as much detail as possible. Our **Support Team** will be here soon to help.`)
+        .addField(`Bonjour ${message.author.username}!`, `Merci d'expliquer avec le plus de précisions votre problème puis patientez qu'un **Support Team** viennent vous aider`)
         .setTimestamp();
         c.send({ embed: embed });
     }).catch(console.error);
