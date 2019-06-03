@@ -10,7 +10,7 @@ client.on('ready', () => {
   client.user.setActivity ("Bot de test")
 });
 client.on ("message", async message => {
-  if (message.author.id === "516274923828805667") {
+  //if (message.author.id === "516274923828805667") {
   if (message.content.startsWith (prefix + "test484884")) {
     message.channel.send(`{<@&584305495771185162>}`).toString ()
   }
@@ -197,8 +197,318 @@ message.channel.send (serveur)
         });
     });
       })
-    }
+    
   }         
-                                             
+                 if(message.content.startsWith (prefix +  "h")) {
+
+    message.channel.send({embed: {
+        title: `:chart_with_upwards_trend: Choisissez la catégorie que vous souhaitez voir :`,
+        fields : [{
+            name: "🔨 | Modération",
+            value: "Envoyez modo"
+        }, {
+            name: ":family: | Utilisateurs",
+            value: "Envoyez User"
+        }, {
+            name: ":nut_and_bolt: | Commande pour la création des serveurs",
+            value: "Envoyez serveur"
+        }],
+        footer: {
+            text: "⚠ Vous avez 30 secondes ⚠",
+        }
+    }})
+}           
+    if(message.content.startsWith (prefix + "y")) {
+ 
+    const base = await message.channel.send({embed: {
+        color: 3447003,
+        title: `:chart_with_upwards_trend: Choisissez la catégorie que vous souhaitez voir :`,
+        fields : [{
+            name: "🔨 | Modération",
+            value: "Envoyez modo"
+        }, {
+            name: ":family: | Utilisateurs",
+            value: "Envoyez User"
+        }, {
+            name: ":nut_and_bolt: | Commande pour la création des serveurs",
+            value: "Envoyez serveur"
+        }],
+        footer: {
+            text: "⚠ Vous avez 30 secondes ⚠",
+        }
+    }})
+ 
+    await base.react('🔨');
+    await base.react('👪');
+    await base.react('🔩');
+ 
+    const collector = base.createReactionCollector((reaction, user) => user.id === message.author.id);
+       
+        collector.on('collect', async(reaction) => {
+       
+        if (reaction.emoji.name === "🔨") {
+ 
+            base.edit({ embed: {
+                fields: [{
+                    value: "Le placard de la modération",
+                    text: ":en_ligne:``g!lock``\ **Interdit au rôle everyone de parler sur le salon**\n:en_ligne:``g!unlock``\ **Autorise de nouveaux au role everyone de parler**\n:en_ligne:``g!say``\ **Fait parler le bot à votre place**\n:en_ligne:``g!slowmode``\ **Mettre un slowmode (mettre 0 pour désactiver)**\n:en_ligne:``g!deleteserv``\ **Détruit tout les salons de votre serveur (nous ne sommes pas responsable d'un mauvaise usage de votre part)**\n:en_ligne:``g!eval``\ **Réservé à l'owner du bot**\n:en_ligne:``g!kick``\ **Exclut le membre mentionner**\n:en_ligne:``g!ban``\ **Bannis le membre mentionner**\n:en_ligne:``g!reglement``**vous fait un jolie règlement pré-definis**"
+                }]
+            }})
+        };
+ 
+        if (reaction.emoji.name === "👪") {
+ 
+            base.edit({ embed: {
+                title: "Le placard de l'utilisateurs",
+                description: `:en_ligne:g!verif Vous permet de verifier si l'utilisateur mentionné est dans le staff du bot
+               :en_ligne:g!gen Vous permet de générer une invitation permanente!
+               :en_ligne:g!avatar Vous donne la photo de profil de la personne mentionné !
+               :en_ligne:g!uptime Voir depuis quand le bot ne c'est pas redémarré
+                :en_ligne:g!ping Regarder le ping du bot
+                :en_ligne:g!setup Vous permet de voir comment construire votre serveur
+                :en_ligne:g!view Vous permet d'avoir la liste de 5 serveurs qui sont là pour exemple des commandes !
+               :en_ligne:g!contactfaire un report ou autre en contactant un administrateur rapidemment (réponse sous 24h)`
+ 
+           }})
+ 
+           collector.stop();
+       }
+ 
+       if (reaction.emoji.name === "🔩") {
+ 
+           base.edit({ embed : {
+               fields: [{
+                   value: "Communautaire :",
+                   text: ":en_ligne:``g!commu``**\ Crée votre serveur sous le thème de la communauté**"
+               }, {
+                   value : "Basique :",
+                   text: ":en_ligne:``g!salon``\ **Création de votre serveur sous le thème global**"
+               }, {
+                   value : "Publicitaire :",
+                   text: ":en_ligne:``g!pub``\ **Crée un serveur sous le thème Publicitaire**\n:en_ligne:``g!p-2``\ **Crée un serveur sous le thème Publicitaire 2**"
+               }, {
+                   value: "Uniquement les rôles",
+                   text: ":en_ligne:``g!role``\ **Création des roles uniquement**"
+               }]
+           }})
+       }
+       
+   });
+ 
+};
+    
+  
+if(message.content.startsWith (prefix + "f")) {
+ 
+    const base = await message.channel.send({embed: {
+        color: 3447003,
+        title: `:chart_with_upwards_trend: Choisissez la catégorie que vous souhaitez voir :`,
+        fields : [{
+            name: "🔨 | Modération",
+            name: "Envoyez modo"
+        }, {
+            name: ":family: | Utilisateurs",
+            name: "Envoyez User"
+        }, {
+            name: ":nut_and_bolt: | Commande pour la création des serveurs",
+            name: "Envoyez serveur"
+        }],
+        footer: {
+            text: "⚠ Vous avez 30 secondes ⚠",
+        }
+    }})
+ 
+    await base.react('🔨');
+    await base.react('👪');
+    await base.react('🔩');
+ 
+    const collector = base.createReactionCollector((reaction, user) => user.id === message.author.id);
+       
+        collector.on('collect', async(reaction) => {
+       
+        if (reaction.emoji.name === "🔨") {
+ 
+            base.edit({ embed: {
+                fields: [{
+                    name: "Le placard de la modération",
+                    text: ":en_ligne:``g!lock``\ **Interdit au rôle everyone de parler sur le salon**\n:en_ligne:``g!unlock``\ **Autorise de nouveaux au role everyone de parler**\n:en_ligne:``g!say``\ **Fait parler le bot à votre place**\n:en_ligne:``g!slowmode``\ **Mettre un slowmode (mettre 0 pour désactiver)**\n:en_ligne:``g!deleteserv``\ **Détruit tout les salons de votre serveur (nous ne sommes pas responsable d'un mauvaise usage de votre part)**\n:en_ligne:``g!eval``\ **Réservé à l'owner du bot**\n:en_ligne:``g!kick``\ **Exclut le membre mentionner**\n:en_ligne:``g!ban``\ **Bannis le membre mentionner**\n:en_ligne:``g!reglement``**vous fait un jolie règlement pré-definis**"
+                }]
+            }})
+ 
+            
+           
+        };
+ 
+        if (reaction.emoji.name === "👪") {
+ 
+            base.edit({ embed: {
+                title: "Le placard de l'utilisateurs",
+                description: `:en_ligne:g!verif Vous permet de verifier si l'utilisateur mentionné est dans le staff du bot
+             :en_ligne:g!gen Vous permet de générer une invitation permanente!
+             :en_ligne:g!avatar Vous donne la photo de profil de la personne mentionné !
+             :en_ligne:g!uptime Voir depuis quand le bot ne c'est pas redémarré
+                :en_ligne:g!ping Regarder le ping du bot
+                :en_ligne:g!setup Vous permet de voir comment construire votre serveur
+                :en_ligne:g!view Vous permet d'avoir la liste de 5 serveurs qui sont là pour exemple des commandes !
+             :en_ligne:g!contactfaire un report ou autre en contactant un administrateur rapidemment (réponse sous 24h)`
+ 
+         }})
+ 
+        
+     }
+ 
+     if (reaction.emoji.name === "🔩") {
+ 
+         base.edit({ embed : {
+             fields: [{
+                 name: "Communautaire :",
+                 text: ":en_ligne:``g!commu``**\ Crée votre serveur sous le thème de la communauté**"
+             }, {
+                 name : "Basique :",
+                 text: ":en_ligne:``g!salon``\ **Création de votre serveur sous le thème global**"
+             }, {
+                 name : "Publicitaire :",
+                 text: ":en_ligne:``g!pub``\ **Crée un serveur sous le thème Publicitaire**\n:en_ligne:``g!p-2``\ **Crée un serveur sous le thème Publicitaire 2**"
+             }, {
+                 name: "Uniquement les rôles",
+                 text: ":en_ligne:``g!role``\ **Création des roles uniquement**"
+             }]
+         }})
+ 
+         
+     }
+   
+ });
+ 
+};
+  if(message.content.startsWith (prefix + "?")) {
+ 
+    const base = await message.channel.send({embed: {
+        color: 3447003,
+        title: `:chart_with_upwards_trend: Choisissez la catégorie que vous souhaitez voir :`,
+        fields : [{
+            name: "🔨 | Modération",
+            value: "Envoyez modo"
+        }, {
+            name: ":family: | Utilisateurs",
+            value: "Envoyez User"
+        }, {
+            name: ":nut_and_bolt: | Commande pour la création des serveurs",
+            value: "Envoyez serveur"
+        }],
+        footer: {
+            text: "⚠ Vous avez 30 secondes ⚠",
+        }
+    }})
+ 
+    await base.react('🔨');
+    await base.react('👪');
+    await base.react('🔩');
+ 
+    const collector = base.createReactionCollector((reaction, user) => user.id === message.author.id);
+       
+        collector.on('collect', async(reaction) => {
+       
+        if (reaction.emoji.name === "🔨") {
+ 
+            base.edit({ embed: {
+                fields: [{
+                    name: "Le placard de la modération",
+                    value: "<:en_ligne:576662449734811659>``g!lock``\ **Interdit au rôle everyone de parler sur le salon**\n<:en_ligne:576662449734811659>``g!unlock``\ **Autorise de nouveaux au role everyone de parler**\n<:en_ligne:576662449734811659>``g!say``\ **Fait parler le bot à votre place**\n<:en_ligne:576662449734811659>``g!slowmode``\ **Mettre un slowmode (mettre 0 pour désactiver)**\n<:en_ligne:576662449734811659>``g!deleteserv``\ **Détruit tout les salons de votre serveur (nous ne sommes pas responsable d'un mauvaise usage de votre part)**\n<:en_ligne:576662449734811659>``g!eval``\ **Réservé à l'owner du bot**\n<:en_ligne:576662449734811659>``g!kick``\ **Exclut le membre mentionner**\n<:en_ligne:576662449734811659>``g!ban``\ **Bannis le membre mentionner**\n<:en_ligne:576662449734811659>``g!reglement``**vous fait un jolie règlement pré-definis**"
+                }]
+            }})
+ 
+            collector.stop();
+           
+        };
+ 
+        if (reaction.emoji.name === "👪") {
+ 
+            base.edit({ embed: {
+                title: "Le placard de l'utilisateurs",
+                description: `<:en_ligne:576662449734811659>g!verif Vous permet de verifier si l'utilisateur mentionné est dans le staff du bot
+            <:en_ligne:576662449734811659>g!gen Vous permet de générer une invitation permanente!
+            <:en_ligne:576662449734811659>g!avatar Vous donne la photo de profil de la personne mentionné !
+            <:en_ligne:576662449734811659>g!uptime Voir depuis quand le bot ne c'est pas redémarré
+                <:en_ligne:576662449734811659>g!ping Regarder le ping du bot
+                <:en_ligne:576662449734811659>g!setup Vous permet de voir comment construire votre serveur
+                <:en_ligne:576662449734811659>g!view Vous permet d'avoir la liste de 5 serveurs qui sont là pour exemple des commandes !
+            <:en_ligne:576662449734811659>g!contactfaire un report ou autre en contactant un administrateur rapidemment (réponse sous 24h)`
+ 
+        }})
+ 
+        collector.stop();
+    }
+ 
+    if (reaction.emoji.name === "🔩") {
+ 
+        base.edit({ embed : {
+            fields: [{
+                name: "Communautaire :",
+                value: "<:en_ligne:576662449734811659>``g!commu``**\ Crée votre serveur sous le thème de la communauté**"
+            }, {
+                name : "Basique :",
+                value: "<:en_ligne:576662449734811659>``g!salon``\ **Création de votre serveur sous le thème global**"
+            }, {
+                name : "Publicitaire :",
+                value: "<:en_ligne:576662449734811659>``g!pub``\ **Crée un serveur sous le thème Publicitaire**\n<:en_ligne:576662449734811659>``g!p-2``\ **Crée un serveur sous le thème Publicitaire 2**"
+            }, {
+                name: "Uniquement les rôles",
+                value: "<:en_ligne:576662449734811659>``g!role``\ **Création des roles uniquement**"
+            }]
+        }})
+ 
+        collector.stop();
+    }
+        
+});
+  };
+
+   if(message.content.startsWith (prefix + "rea")) {
+if (message.channel.id === "584904228833591323") {
+    const base = await message.channel.send({embed: {
+        color: 3447003,
+        title: `:chart_with_upwards_trend: Choisissez votre rôle :`,
+        fields : [{
+            name: ":white_check_mark:",
+            value: "Accepter le règlement"
+        }],
+        footer: {
+            text: "⚠ Réagit et gagne ton role ⚠",
+        }
+    }})
+    await base.react ("🔨");
+      const collector = base.createReactionCollector((reaction, user) => user.id);
+       
+        collector.on('collect', async(reaction) => {
+        if (reaction.emoji.name === "🔨") {
+          collector.stop ();
+          setTimeout (() => {
+            base.delete ();
+          }, 10000);
+  var serv = message.guild.id || message.author.id
+  message.channel.send("Merci de notez ci-dessous :\ " + serv).then((m) => {
+      message.channel.awaitMessages(response => response.content === `${serv}`, {
+        max: 1,
+        time: 20000,
+        errors: ['time'],
+      })
+      .then((collected) => {
+        var test = client.channels.find(`id`, "583693815190126592");
+       const embed = new Discord.RichEmbed()
+        .addField ("Verification passé", message.author.username)
+   test.send(embed)
+    message.member.addRole(`584843275047796741`)
+        })
+        .catch(() => {
+          m.edit('Vous n\'avez pas confirmer le code').then(m => {
+              m.delete ();
+          }, 10000);
+        });
+    });
+        }
+        });
+   };
+   }
 });
 client.login(process.env.TOKEN)
