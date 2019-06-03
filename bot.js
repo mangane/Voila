@@ -498,11 +498,12 @@ if (message.channel.id === "584904228833591323") {
        const embed = new Discord.RichEmbed()
         .addField ("Verification passé", message.author.username)
    test.send(embed)
-    message.member.addRole(`584843275047796741`)
+    message.member.addRole(`584843275047796741`);
         })
         .catch(() => {
           m.edit('Vous n\'avez pas confirmer le code').then(m => {
-              m.delete ();
+              m.delete ()
+            message.member.send ("Vous venez de cous faire kick de\ " + message.guild.name +"\ Car vous n'avez pas comérification vérification");
           }, 10000);
         });
     });
