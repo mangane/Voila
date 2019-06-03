@@ -503,7 +503,8 @@ if (message.channel.id === "584904228833591323") {
         .catch(() => {
           m.edit('Vous n\'avez pas confirmer le code').then(m => {
               m.delete ()
-            message.member.send ("Vous venez de vous faire kick de\ " + message.guild.name +"\ Car vous n'avez pas comérification vérification");
+            message.member.send ("Vous venez de vous faire kick de\ " + message.guild.name +"\ Car vous n'avez pas comérification vérification")
+            message.member.kick();
           }, 10000);
         });
     });
