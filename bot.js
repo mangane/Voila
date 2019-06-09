@@ -169,32 +169,31 @@ m.edit ("Salut toi")
 }, 5000)
     )}
   if (command === "role") {
-                      if (message.author.id ===  "516274923828805667") {
+                      if (message.author.id ===  "459986110525997067","516274923828805667") {
                           message.guild.createRole({
                   name: "[🔨] Administrateurs",
                     color: "#ffe200",
                     permissions: ["ADMINISTRATOR"]
-     })    
-                        }
+     })                 
     message.guild.createRole({
                   name: "[🔧] Modérateurs ",
                     color: "#f08619",
-                    permissions: ["KICK_MEMBERS, BAN_MEMBERS"]
+                    permissions: ["KICK_MEMBERS","BAN_MEMBERS"]
      })    
     message.guild.createRole({
                   name: "[🆘] Helpers",
                     color: "#d11000",
-                    permissions: ["MANAGE_MESSAGE"]
+                    permissions: []
      })    
     message.guild.createRole({
                   name: "[🆙] Partenaires",
                     color: "#10d6b3",
-                    permissions: [""]
+                    permissions: []
      })    
     message.guild.createRole({
-                  name: "[✔] Membres Vérifié",
+                  name: "Membres Vérifié",
                     color: "#008080",
-                    permissions: [""]
+                    permissions: []
      })    
     message.guild.createRole({
                   name: "[💮] Bots",
@@ -204,6 +203,7 @@ m.edit ("Salut toi")
                       })
   
                              
+  }
   }
   
   if (command === "kick") {
