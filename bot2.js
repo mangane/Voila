@@ -1,57 +1,135 @@
 const Discord = require('discord.js');
 let client = new Discord.Client();
 const prefix = "?";
+client.on("message", function(message) {
+    if (message.content === prefix + "open") {
+      if (message.channel.id === "605852566701473834") {
+        const embed = new Discord.RichEmbed()
+            .setAuthor(message.author.username)
+            .setColor("RANDOM")
+            .setDescription("Choisissez le sujet de votre question parmis les 4 proposés\nCommandez => 💸\nFaire un don => 🏪\nRecrutement => 🌱\nProposer une suggestion => 🔧")
+
+        const facturation = new Discord.RichEmbed()
+            .setAuthor(message.author.username)
+            .setColor("RANDOM")
+            .setTitle("Vous avez donc choisi la catégorie ``Commandez``")
+            .setDescription("Vous pouvez maintenant nous donner ce que vous desirez commandez")
+
+        const commercial = new Discord.RichEmbed()
+            .setAuthor(message.author.username)
+            .setColor("RANDOM")
+            .setTitle("Vous avez donc choisi une question en rapport avec les dons")
+            .setDescription("Vous pouvez maintenant poser votre question")
+
+        const recrutement = new Discord.RichEmbed()
+            .setAuthor(message.author.username)
+            .setColor("RANDOM")
+            .setTitle("Vous avez donc une question en rapport avec le recrutement")
+            .setDescription("Vous pouvez maintenant poser votre question")
+
+        const tech = new Discord.RichEmbed()
+            .setAuthor(message.author.username)
+            .setColor("RANDOM")
+            .setTitle("Vous avez donc une suggestion à nous faire part")
+            .setDescription("Vous pouvez maintenant poser votre suggestion")
+
+
+        message.guild.createChannel("Ticket-" + message.author.username, "text")
+            .then(c => {
+                c.overwritePermissions(message.author, {
+                    VIEW_CHANNEL: true,
+                    SEND_MESSAGES: true,
+                    EMBED_LINKS: true,
+                    ATTACH_FILES: true,
+                    READ_MESSAGE_HISTORY: true
+                })
+                c.overwritePermissions("586121137545543691", {
+                    VIEW_CHANNEL: true,
+                    SEND_MESSAGES: true,
+                    EMBED_LINKS: true,
+                    ATTACH_FILES: true,
+                    READ_MESSAGE_HISTORY: true
+                })
+                c.overwritePermissions("586121182097440778", {
+                    VIEW_CHANNEL: true,
+                    SEND_MESSAGES: true,
+                    EMBED_LINKS: true,
+                    ATTACH_FILES: true,
+                    READ_MESSAGE_HISTORY: true
+                })
+                c.overwritePermissions("586121225487777807", {
+                    VIEW_CHANNEL: true,
+                    SEND_MESSAGES: true,
+                    EMBED_LINKS: true,
+                    ATTACH_FILES: true,
+                    READ_MESSAGE_HISTORY: true
+                })
+                c.overwritePermissions("586121269699805187", {
+                    VIEW_CHANNEL: true,
+                    SEND_MESSAGES: true,
+                    EMBED_LINKS: true,
+                    ATTACH_FILES: true,
+                    READ_MESSAGE_HISTORY: true
+                })
+                c.overwritePermissions(message.guild.id, {
+                    VIEW_CHANNEL: false
+                })
+                c.overwritePermissions("515590705511530523", {
+                    VIEW_CHANNEL: false
+                })
+                c.send(message.author, embed).then(async data => {
+                data.react("💸")
+                await data.react("🏪")
+                await data.react("🌱")
+                await data.react("🔧")
+                    .then(ok => {
+                        const msgreact = data.createReactionCollector((reaction, user) => user.id === message.author.id);
+                        msgreact.on("collect", async (reaction) => {
+                            if (reaction.emoji.name === "💸") { //menu d'aide
+                                reaction.remove(message.author.id);
+                                data.edit(facturation)
+                                data.clearReactions()
+                            } else {
+                                if (reaction.emoji.name === "🏪") { //menu d'aide
+                                    reaction.remove(message.author.id);
+                                    data.edit(commercial)
+                                    data.clearReactions()
+                                } else {
+                                    if (reaction.emoji.name === "🌱") { //menu d'aide
+                                        reaction.remove(message.author.id);
+                                        data.edit(recrutement)
+                                        data.clearReactions()
+                                    } else {
+                                        if (reaction.emoji.name === "🔧") { //menu d'aide
+                                            reaction.remove(message.author.id);
+                                            data.edit(tech)
+                                            data.clearReactions()
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                    })
+            })
+          
+        })
+    } else {
+      message.channel.send("Merci d'utiliser cette commande dans <#586130252905054221>")
+    }}
+    if (message.content === prefix + "close") {
+        if (message.channel.name.startsWith("ticket-")) {
+            message.channel.delete()
+        } else {
+            message.channel.send("Impossible de fermer ce ticket")
+        }
+    }
+})
+});
 client.on ("message", async message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
-  if (message.content.startsWith (prefix + `new`)) {
-    const reason = message.content.split(" ").slice(1).join(" ");
-    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`Ce serveur ne possède pas de rôle \`Support Team\` Le ticket ne peux donc pas être créé, Contacté un administrateur pour qu'ilcréele rôle avec le nom Exact !`);
-      if (message.guild.channels.exists("name", "ticket-" + message.author.username)) return message.channel.send(`Vous êtes déjà en possession d'un ticket `)
-    message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
-        let role = message.guild.roles.find("name", "Support Team");
-        let role2 = message.guild.roles.find("name", "@everyone");
-        c.overwritePermissions(role, {
-            SEND_MESSAGES: true,
-            READ_MESSAGES: true
-        });
-        c.overwritePermissions(role2, {
-            SEND_MESSAGES: false,
-            READ_MESSAGES: false
-        });
-        c.overwritePermissions(message.author, {
-            SEND_MESSAGES: true,
-            READ_MESSAGES: true
-        });
-        message.channel.send(`<:yeahhhh:593455006724653060> Votre ticket à bien été créé  ${c}.`);
-        const embed = new Discord.RichEmbed()
-        .setColor(0xCF40FA)
-        .addField(`Bonjour ${message.author.username}!`, `Merci d'expliquer avec le plus de précisions votre problème puis patientez qu'un **Support Team** viennent vous aider`)
-        .setTimestamp()
-        .setFooter (prefix+`close pour fermer`);
-        c.send({ embed: embed });
-    }).catch(console.error);
-}
-if (message.content.startsWith (prefix + `close`)) {
-    if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`Vous pouvez utiliser cette commande uniquement sur votre ticket !`);
-
-    message.channel.send(`Vous êtes sûr ? Vous ne pourrez pas revenir en arrière ! Pour confirmer taper ` + prefix+`confirm (vous avez 20 seconds)`)
-    .then((m) => {
-      message.channel.awaitMessages(response => response.content === prefix +'confirm', {
-        max: 1,
-        time: 20000,
-        errors: ['time'],
-      })
-      .then((collected) => {
-          message.channel.delete();
-        })
-        .catch(() => {
-          m.edit('Vous n\'avez pas confirmer la fermeture du ticket').then(m2 => {
-              m2.delete();
-          }, 3000);
-        });
-    });
-}
+  
+  
   if (message.content.startsWith ( prefix + "ban")) {
 		 	if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send (":x: Tu ne peux pas executer la commande demandée");	
 
