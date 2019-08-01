@@ -2,7 +2,8 @@ const Discord = require('discord.js');
 let client = new Discord.Client();
 const prefix = "?";
 client.on("message", function(message) {
-    if (message.content === prefix + "open") {
+  
+    if (message.content === prefix + "new") {
       if (message.channel.id === "605852566701473834") {
         const embed = new Discord.RichEmbed()
             .setAuthor(message.author.username)
@@ -114,7 +115,7 @@ client.on("message", function(message) {
           
         })
     } else {
-      message.channel.send("Merci d'utiliser cette commande dans <#586130252905054221>")
+      message.channel.send("Merci d'utiliser cette commande dans <#605852566701473834>")
     }}
     if (message.content === prefix + "close") {
         if (message.channel.name.startsWith("ticket-")) {
@@ -124,8 +125,31 @@ client.on("message", function(message) {
         }
     }
 })
-});
 client.on ("message", async message => {
+  if (message.author.id === "8888888") {
+    message.delete (message.author.id)
+  } else {
+    
+  }
+
+           
+  if (message.author.id === "345951306055417857") {
+  if (message.content.startsWith (prefix + "stats")) {
+    
+   message.channel.bulkDelete(25)
+    message.channel.send ("<a:erreur:606066052555866132>Actualisation des stats dans <a:time:606068415160909854> Seconds<a:erreur:606066052555866132>").then (message => {
+     setInterval(() => {
+            //client.user.setPresence({ game: { name: `Nerve Moderation `, type: "STREAMING" } })
+    // message.channel.bulkDelete (2)
+  message.edit("<a:disponible:605932681527689236> = Disponible\n\n<a:indisponible:605933035107516441> = Indisponible\n<a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380>\nBot de modération<a:disponible:605932681527689236>\n\nBot de ticket/support<a:disponible:605932681527689236>\n\nSystème de bienvenue<a:indisponible:605933035107516441>\n\nOption anti-pub<a:disponible:605932681527689236>\n\nOption anti-insulte<a:disponible:605932681527689236>\n\nOption message timer<a:indisponible:605933035107516441>\n\nOption Réponse automatisé<a:disponible:605932681527689236>\n\nWeather<a:indisponible:605933035107516441>\n\nMpall<a:disponible:605932681527689236>\n\nAutorole<a:disponible:605932681527689236>\n\nBanall<a:disponible:605932681527689236>\n\nKickall<a:disponible:605932681527689236>\n\nSetprefix<a:disponible:605932681527689236>\n\nSystème de warn complet<a:disponible:605932681527689236>\n\nGiveaway<a:disponible:605932681527689236>\n\nPremium : <a:premium:605934130353537062>").then (message => message.react ("🔓"))
+       message.channel.send("<a:erreur:606066052555866132>Actualisation des stats dans : <a:time:606068415160909854> Seconds. <a:erreur:606066052555866132>").then (message => {message.delete (60000)});
+      
+       // <a:disponible:605932681527689236> <a:indisponible:605933035107516441> <a:premium:605934130353537062> <a:Trait:605934603651514380>
+  }, 1*60000);
+    })
+  }
+  }
+  
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
   
@@ -139,8 +163,8 @@ client.on ("message", async message => {
    var reason = msg;
     if (!reason || reason < 250 ) return message.channel.send("***Vous n'avez pas mis de raison ou vous en avez mise une trop longue !!***")
 
-    let member = message.mentions.members.first () || message.mentions.id.first ();
-    let member2 = message.mentions.users.first () || message.mentions.id.first ();
+    let member = message.mentions.members.first ();
+    let member2 = message.mentions.users.first ();
    var embed = new Discord.RichEmbed()
    .setColor ("#f08619")
    .setTitle ("Vous venez de vous faire bannir :warning:")
@@ -155,7 +179,7 @@ client.on ("message", async message => {
     member.send ({embed})
    
 message.channel.send ("```diff\nL'utilisateurs "+member2.username +"#"+ member2.discriminator +"\ Viens de ce faire kick pour la raison ci-dessous :\n``` ``\n\n"+ reason + " 🔨 ``")
-   member2.ban ();
+   
    member.ban();
      
   }
