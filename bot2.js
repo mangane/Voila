@@ -1,159 +1,86 @@
 const Discord = require('discord.js');
 let client = new Discord.Client();
-const prefix = "?";
-client.on("message", function(message) {
-  
-    if (message.content === prefix + "new") {
-      if (message.channel.id === "605852566701473834") {
-        const embed = new Discord.RichEmbed()
-            .setAuthor(message.author.username)
-            .setColor("RANDOM")
-            .setDescription("Choisissez le sujet de votre question parmis les 4 proposés\nCommandez => 💸\nFaire un don => 🏪\nRecrutement => 🌱\nProposer une suggestion => 🔧")
+const prefix = "!!";
+client.on('guildMemberAdd', member => {
+  const channel = member.guild.channels.find(ch => ch.name === '《👋》bienvenue');
+    if (!channel)return;
+    const embed = new Discord.RichEmbed()
+    .setColor(0xF0000)
+    .setDescription("Bienvenue Sur le serveur ``Le coin gameur``")
+   // .setAuthor(` Nous sommes maintenant : \ ` + member.guild.memberCount);
 
-        const facturation = new Discord.RichEmbed()
-            .setAuthor(message.author.username)
-            .setColor("RANDOM")
-            .setTitle("Vous avez donc choisi la catégorie ``Commandez``")
-            .setDescription("Vous pouvez maintenant nous donner ce que vous desirez commandez")
+    channel.send({embed})
+});
+client.on('guildMemberRemove', member => {
+  const channel = member.guild.channels.find(ch => ch.name === '《👋》bienvenue');
+    if (!channel)return;
+    const embed = new Discord.RichEmbed()
+    .setColor(0xF0000)
+    .setDescription("Un membre et partis quelle dommage")
+    channel.send({embed})
+});
 
-        const commercial = new Discord.RichEmbed()
-            .setAuthor(message.author.username)
-            .setColor("RANDOM")
-            .setTitle("Vous avez donc choisi une question en rapport avec les dons")
-            .setDescription("Vous pouvez maintenant poser votre question")
-
-        const recrutement = new Discord.RichEmbed()
-            .setAuthor(message.author.username)
-            .setColor("RANDOM")
-            .setTitle("Vous avez donc une question en rapport avec le recrutement")
-            .setDescription("Vous pouvez maintenant poser votre question")
-
-        const tech = new Discord.RichEmbed()
-            .setAuthor(message.author.username)
-            .setColor("RANDOM")
-            .setTitle("Vous avez donc une suggestion à nous faire part")
-            .setDescription("Vous pouvez maintenant poser votre suggestion")
-
-
-        message.guild.createChannel("Ticket-" + message.author.username, "text")
-            .then(c => {
-                c.overwritePermissions(message.author, {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                    EMBED_LINKS: true,
-                    ATTACH_FILES: true,
-                    READ_MESSAGE_HISTORY: true
-                })
-                c.overwritePermissions("586121137545543691", {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                    EMBED_LINKS: true,
-                    ATTACH_FILES: true,
-                    READ_MESSAGE_HISTORY: true
-                })
-                c.overwritePermissions("586121182097440778", {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                    EMBED_LINKS: true,
-                    ATTACH_FILES: true,
-                    READ_MESSAGE_HISTORY: true
-                })
-                c.overwritePermissions("586121225487777807", {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                    EMBED_LINKS: true,
-                    ATTACH_FILES: true,
-                    READ_MESSAGE_HISTORY: true
-                })
-                c.overwritePermissions("586121269699805187", {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                    EMBED_LINKS: true,
-                    ATTACH_FILES: true,
-                    READ_MESSAGE_HISTORY: true
-                })
-                c.overwritePermissions(message.guild.id, {
-                    VIEW_CHANNEL: false
-                })
-                c.overwritePermissions("515590705511530523", {
-                    VIEW_CHANNEL: false
-                })
-                c.send(message.author, embed).then(async data => {
-                data.react("💸")
-                await data.react("🏪")
-                await data.react("🌱")
-                await data.react("🔧")
-                    .then(ok => {
-                        const msgreact = data.createReactionCollector((reaction, user) => user.id === message.author.id);
-                        msgreact.on("collect", async (reaction) => {
-                            if (reaction.emoji.name === "💸") { //menu d'aide
-                                reaction.remove(message.author.id);
-                                data.edit(facturation)
-                                data.clearReactions()
-                            } else {
-                                if (reaction.emoji.name === "🏪") { //menu d'aide
-                                    reaction.remove(message.author.id);
-                                    data.edit(commercial)
-                                    data.clearReactions()
-                                } else {
-                                    if (reaction.emoji.name === "🌱") { //menu d'aide
-                                        reaction.remove(message.author.id);
-                                        data.edit(recrutement)
-                                        data.clearReactions()
-                                    } else {
-                                        if (reaction.emoji.name === "🔧") { //menu d'aide
-                                            reaction.remove(message.author.id);
-                                            data.edit(tech)
-                                            data.clearReactions()
-                                        }
-                                    }
-                                }
-                            }
-                        })
-                    })
-            })
-          
-        })
-    } else {
-      message.channel.send("Merci d'utiliser cette commande dans <#605852566701473834>")
-    }}
-    if (message.content === prefix + "close") {
-        if (message.channel.name.startsWith("ticket-")) {
-            message.channel.delete()
-        } else {
-            message.channel.send("Impossible de fermer ce ticket")
-        }
-    }
-})
 client.on ("message", async message => {
-  if (message.author.id === "8888888") {
-    message.delete (message.author.id)
-  } else {
-    
-  }
+ // {
+        //"id": 7,
+        //"name": "Weather info",
+      //  "activated": true,
+       // "config": "weather",
+      //  "info": {
+          //  "example": "!weather Paris",
+           // "note": "",
+         //   "requirements": ""
+       // }
+   // }
 
-           
-  if (message.author.id === "345951306055417857") {
-  if (message.content.startsWith (prefix + "stats")) {
-    
-   message.channel.bulkDelete(25)
-    message.channel.send ("<a:erreur:606066052555866132>Actualisation des stats dans <a:time:606068415160909854> Seconds<a:erreur:606066052555866132>").then (message => {
-     setInterval(() => {
-            //client.user.setPresence({ game: { name: `Nerve Moderation `, type: "STREAMING" } })
-    // message.channel.bulkDelete (2)
-  message.edit("<a:disponible:605932681527689236> = Disponible\n\n<a:indisponible:605933035107516441> = Indisponible\n<a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380><a:Trait:605934603651514380>\nBot de modération<a:disponible:605932681527689236>\n\nBot de ticket/support<a:disponible:605932681527689236>\n\nSystème de bienvenue<a:indisponible:605933035107516441>\n\nOption anti-pub<a:disponible:605932681527689236>\n\nOption anti-insulte<a:disponible:605932681527689236>\n\nOption message timer<a:indisponible:605933035107516441>\n\nOption Réponse automatisé<a:disponible:605932681527689236>\n\nWeather<a:indisponible:605933035107516441>\n\nMpall<a:disponible:605932681527689236>\n\nAutorole<a:disponible:605932681527689236>\n\nBanall<a:disponible:605932681527689236>\n\nKickall<a:disponible:605932681527689236>\n\nSetprefix<a:disponible:605932681527689236>\n\nSystème de warn complet<a:disponible:605932681527689236>\n\nGiveaway<a:disponible:605932681527689236>\n\nPremium : <a:premium:605934130353537062>").then (message => message.react ("🔓"))
-       message.channel.send("<a:erreur:606066052555866132>Actualisation des stats dans : <a:time:606068415160909854> Seconds. <a:erreur:606066052555866132>").then (message => {message.delete (60000)});
-      
-       // <a:disponible:605932681527689236> <a:indisponible:605933035107516441> <a:premium:605934130353537062> <a:Trait:605934603651514380>
-  }, 1*60000);
-    })
-  }
-  }
-  
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
-	const command = args.shift().toLowerCase();
-  
-  
+  if (message.content.startsWith (prefix + `new`)) {
+    const reason = message.content.split(" ").slice(1).join(" ");
+    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`Ce serveur ne possède pas de rôle \`Support Team\` Le ticket ne peux donc pas être créé, Contacté un administrateur pour qu'ilcréele rôle avec le nom Exact !`);
+      if (message.guild.channels.exists("name", "ticket-" + message.author.username)) return message.channel.send(`Vous êtes déjà en possession d'un ticket `)
+    message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
+        let role = message.guild.roles.find("name", "Support Team");
+        let role2 = message.guild.roles.find("name", "@everyone");
+        c.overwritePermissions(role, {
+            SEND_MESSAGES: true,
+            READ_MESSAGES: true
+        });
+        c.overwritePermissions(role2, {
+            SEND_MESSAGES: false,
+            READ_MESSAGES: false
+        });
+        c.overwritePermissions(message.author, {
+            SEND_MESSAGES: true,
+            READ_MESSAGES: true
+        });
+        message.channel.send(`<:okay:578974520199741472> Votre ticket à bien été créé  ${c}.`);
+        const embed = new Discord.RichEmbed()
+        .setColor(0xCF40FA)
+        .addField(`Bonjour ${message.author.username}!`, `Merci d'expliquer avec le plus de précisions votre problème puis patientez qu'un **Support Team** viennent vous aider`)
+        .setTimestamp()
+        .setFooter (prefix+`close pour fermer`);
+        c.send({ embed: embed });
+    }).catch(console.error);
+}
+if (message.content.startsWith (prefix + `close`)) {
+    if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`Vous pouvez utiliser cette commande uniquement sur votre ticket !`);
+
+    message.channel.send(`Vous êtes sûr ? Vous ne pourrez pas revenir en arrière ! Pour confirmer taper ` + prefix+`confirm (vous avez 20 seconds)`)
+    .then((m) => {
+      message.channel.awaitMessages(response => response.content === prefix +'confirm', {
+        max: 1,
+        time: 20000,
+        errors: ['time'],
+      })
+      .then((collected) => {
+          message.channel.delete();
+        })
+        .catch(() => {
+          m.edit('Vous n\'avez pas confirmer la fermeture du ticket').then(m2 => {
+              m2.delete();
+          }, 3000);
+        });
+    });
+}
   if (message.content.startsWith ( prefix + "ban")) {
 		 	if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send (":x: Tu ne peux pas executer la commande demandée");	
 
@@ -163,8 +90,8 @@ client.on ("message", async message => {
    var reason = msg;
     if (!reason || reason < 250 ) return message.channel.send("***Vous n'avez pas mis de raison ou vous en avez mise une trop longue !!***")
 
-    let member = message.mentions.members.first ();
-    let member2 = message.mentions.users.first ();
+    let member = message.mentions.members.first () || message.mentions.id.first ();
+    let member2 = message.mentions.users.first () || message.mentions.id.first ();
    var embed = new Discord.RichEmbed()
    .setColor ("#f08619")
    .setTitle ("Vous venez de vous faire bannir :warning:")
@@ -179,7 +106,7 @@ client.on ("message", async message => {
     member.send ({embed})
    
 message.channel.send ("```diff\nL'utilisateurs "+member2.username +"#"+ member2.discriminator +"\ Viens de ce faire kick pour la raison ci-dessous :\n``` ``\n\n"+ reason + " 🔨 ``")
-   
+   member2.ban ();
    member.ban();
      
   }
@@ -288,26 +215,16 @@ message.channel.send ("```diff\nL'utilisateurs "+member2.username +"#"+ member2.
     message.reply (":x: Faire de la publicité vous oppose au règlement ! ")
     message.delete(message.author)
   }
-  //var fly = [
-    //"discord.gg",
+  var fly = [
+    "discord.gg",
     
       //"ect..."
-     // ];
-  //if (fly.some (x => message.content.toLowerCase().includes(fly))) {
-   // message.reply ("Lien interdit sur ce serveur !")
-    //message.delete(message.author)
- // }
-  if(message.content.startsWith (prefix + "clear")) {
-		message.delete()
-		if(!message.member.hasPermission("KICK_MEMBERS")) 
-			return message.channel.send(":x: Et ben non, je crois bien que tu n'a pas les permissions d'utiliser cette commande :x:").then(message => {message.delete(5000)})
-	const deleteCount = parseInt(args[0], 10);
-	if(!deleteCount || deleteCount < 2 || deleteCount > 100)
-		return message.reply("Veuillez indiquer un nombre compris entre 2 et 100 pour le nombre de messages à supprimer.").then(message => {message.delete(5000)});
-		const fetched = await message.channel.fetchMessages({limit: deleteCount});
-		message.channel.bulkDelete(fetched)
-		.catch(error => message.reply(`Impossible de supprimer des messages à cause de: ${error}`)).then(message => {message.delete(5000)});
-	}
+      ];
+  if (fly.some (x => message.content.toLowerCase().includes(fly))) {
+    message.reply ("Lien interdit sur ce serveur !")
+    message.delete(message.author)
+  }
+  
   var banni = [
    "connard",
    "pute",
@@ -357,6 +274,8 @@ const embed = new Discord.RichEmbed()
 .setAuthor("Bienvenue sur le menu d'aide de Le coin gameur! ")
 .setImage(message.author.avatarURL)
 .addField ("Kick","Kick une personne mentionner")
+.addField ("close","Fermer votre ticket support")
+.addField ("new","Ouvrir un ticket support")
 .addField ("Ban","Bannis une personne mentionner")
 .addField ("Warn","Avertir un utilisateurs que sont comportement est innaproprié!" )
 .addField ("Mute","Réduit au silence une personne mentionner")
@@ -364,5 +283,13 @@ const embed = new Discord.RichEmbed()
 .setFooter ("Anti-pub et Anti-insulte activé");
 message.channel.send({embed})
 }
+  if (message.content.startsWith (prefix + "stats")) {
+    message.channel.send ("Actualisation dans 59 seconds").then (message => {
+      setInterval(() => {
+message.edit ("stats")
+      }, 1*60000);
+    
+    })
+    }
 });
 client.login (process.env.TOKEN)
